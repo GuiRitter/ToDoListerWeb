@@ -1,0 +1,22 @@
+* {
+  background-color: #000000;
+  color: #959595
+}
+
+input, button {
+  background-color: #101010;
+  border-color: #898989;
+  color: #ffffff
+}
+
+.text_align_center {
+  text-align: center;
+}
+
+.text_align_right {
+  text-align: right;
+}
+
+.padding_top {
+  padding-top: 1em;
+}
