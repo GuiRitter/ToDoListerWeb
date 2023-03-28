@@ -14,6 +14,7 @@ const initialState =
 	isLoading: false,
 	listId: null,
 	listName: null,
+	scrollIntoId: null,
 	token: null,
 };
 
@@ -72,6 +73,12 @@ const reducer = (currentState = initialState, action) => {
 
 		case type.RESTORE_FROM_LOCAL_STORAGE:
 			return JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME)) || initialState;
+
+		case type.SET_SCROLL_ID:
+			return updateLocalStorage({
+				...nextState,
+				scrollIntoId: action.id
+			});
 
 		default: return nextState;
 	}

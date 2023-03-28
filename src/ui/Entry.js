@@ -10,10 +10,12 @@ function Entry(props) {
 
 	const dispatch = useDispatch();
 
+	const id = `entry_${props.index}`;
+
 	let rowList = [
 		buildRow(
 			`entry_${props.index}_id`,
-			buildCell(`entry_id`, props.entry.external_id, { className: 'padding_top' })
+			buildCell(`entry_id`, props.entry.external_id, { id, className: 'padding_top' })
 		),
 		buildRow(
 			`entry_${props.index}_url`,
@@ -34,7 +36,7 @@ function Entry(props) {
 			buildRow(
 				`entry_${props.index}_button`,
 				buildCell(`entry_date`, <button
-					onClick={() => dispatch(markAsDone(props.entry.id))}
+					onClick={() => dispatch(markAsDone(props.entry.id, id))}
 					type='submit'
 				>Mark as done</button>)
 			)

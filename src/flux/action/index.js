@@ -65,18 +65,26 @@ export const getList = () => dispatch => {
 	));
 };
 
-export const markAsDone = id => (dispatch, getState) => {
+export const markAsDone = (entryId, elementId) => (dispatch, getState) => {
 	if (!window.confirm('sure?')) {
 		return doesNothing;
 	}
 	dispatch(axios.post(
 		`${API_URL}/entry/do`,
-		{ id },
+		{ id: entryId },
 		null,
-		value => dispatch(getEntry(getState().reducer.listId, getState().reducer.listName)),
+		value => {
+			dispatch(getEntry(getState().reducer.listId, getState().reducer.listName));
+			dispatch(setScrollId(elementId));
+		},
 		null
 	));
 };
+
+export const setScrollId = id => ({
+	type: type.SET_SCROLL_ID,
+	id
+});
 
 export const restoreFromLocalStorage = () => ({
 	type: type.RESTORE_FROM_LOCAL_STORAGE

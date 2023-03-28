@@ -1,7 +1,7 @@
-import React, { /*useEffect, useRef,*/ useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { batchImport, getEntry, getList } from '../flux/action/index';
+import { batchImport, getEntry, getList, setScrollId } from '../flux/action/index';
 
 import { buildCell, buildRow, buildTable } from '../util/html';
 
@@ -11,17 +11,36 @@ import { getLog } from '../util/log';
 
 const log = getLog('EntryList.');
 
+function componentDidMount(props, dispatch, scrollIntoId) {
+	if (scrollIntoId) {
+		dispatch(setScrollId(null));
+		document.getElementById(scrollIntoId).scrollIntoView();
+	}
+}
+
 function EntryList(props) {
+
+	const didMountRef = useRef(false);
 
 	const dispatch = useDispatch();
 
 	const listId = useSelector(state => ((state || {}).reducer || {}).listId);
 	const listName = useSelector(state => ((state || {}).reducer || {}).listName);
-	const entryList = (useSelector(state => (((state || {}).reducer || {}).data)) || []);
+	const entryList = useSelector(state => (((state || {}).reducer || {}).data) || []);
+	const scrollIntoId = useSelector(state => (((state || {}).reducer || {}).scrollIntoId));
 
 	const [importField, setImportField] = useState(null);
 
 	log('EntryList', { listId, listName, entryList });
+
+	useEffect(() => {
+		if (didMountRef.current) {
+			// componentDidUpdate(props, prevProps);
+		} else {
+			didMountRef.current = true;
+			componentDidMount(props, dispatch, scrollIntoId);
+		}
+	});
 
 	return buildTable(
 		[
