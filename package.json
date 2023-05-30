@@ -1,6 +1,6 @@
 {
   "name": "to_do_lister",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "homepage": "to_do_lister/",
   "dependencies": {
@@ -20,6 +20,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
+    "i": "npx update-browserslist-db@latest && npm i",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test"
